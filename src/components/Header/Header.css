@@ -76,6 +76,7 @@ nav a:hover {
     background: none;
     border: none;
     color: white;
+    cursor: pointer;
     font-size: 25px;
     margin: 0 0 12px;
     padding: 12px;
