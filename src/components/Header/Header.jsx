@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import "./Header.css";
 import Logo from "../../assets/dnc-logo.svg";
 
+// COMPONENTS
+import Button from "../Button/Button"
+
 function Header() {
     return (
         <header>
@@ -12,6 +15,10 @@ function Header() {
                     <Link to={"/"}>
                         <img src={Logo} alt='Logo' />
                     </Link>
+                    
+                    <div className="mobile-menu">
+                        <Button buttonStyle="secondary">Menu</Button>
+                    </div>
 
                     <nav>
                         <ul className='d-flex'>
