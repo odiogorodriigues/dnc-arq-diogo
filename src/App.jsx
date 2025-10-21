@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 // PAGES
 import Home from './pages/Home'
@@ -11,7 +11,7 @@ import ScrollTop from './utils/ScrollTop'
 
 function App() {
   return (
-    <Router>
+    <Router basename='/dnc-arq-diogo'>
       <ScrollTop />
       <Routes>
         <Route path="/" element={<Home />} />

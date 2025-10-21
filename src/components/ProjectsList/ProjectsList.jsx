@@ -1,78 +1,54 @@
+import { useEffect, useState } from "react";
 import "./ProjectsList.css";
 
 //ASSETS
 import LikedFilled from "../../assets/like-filled.svg";
 import Like from "../../assets/like.svg";
 
-function ProjectsList(props) {
-  return (
-    <div className="projects-section">
-      <div className="projects-hero">
-        <h2>Follow Our Projects</h2>
-        <p>
-          It is a long established fact that a reader will be distracted by the
-          of readable content of page lookings at its layouts points.
-        </p>
-      </div>
-      <div className="projects-grid">
-        <div className="project-card d-flex jc-center al-center fd-column">
-          <div className="thumb tertiary-background"></div>
-          <h3>João Silva</h3>
-          <p>BH, Brasil</p>
-          <img src={LikedFilled} height="20px" />
-        </div>
+// UTILS
+import { getApiData } from "../../services/apiServices";
 
-        <div className="project-card d-flex jc-center al-center fd-column">
-          <div className="thumb tertiary-background"></div>
-          <h3>João Silva</h3>
-          <p>BH, Brasil</p>
-          <img src={Like} height="20px" />
-        </div>
+function ProjectsList() {
+    const [projects, setProjects] = useState([]);
 
-        <div className="project-card d-flex jc-center al-center fd-column">
-          <div className="thumb tertiary-background"></div>
-          <h3>João Silva</h3>
-          <p>BH, Brasil</p>
-          <img src={LikedFilled} height="20px" />
-        </div>
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const projectsResponse = await getApiData("projects");
+                setProjects(projectsResponse);
+            } catch {
+                setProjects([]);
+            }
+        };
 
-        <div className="project-card d-flex jc-center al-center fd-column">
-          <div className="thumb tertiary-background"></div>
-          <h3>João Silva</h3>
-          <p>BH, Brasil</p>
-          <img src={LikedFilled} height="20px" />
-        </div>
+        fetchData();
+    }, []);
 
-        <div className="project-card d-flex jc-center al-center fd-column">
-          <div className="thumb tertiary-background"></div>
-          <h3>João Silva</h3>
-          <p>BH, Brasil</p>
-          <img src={LikedFilled} height="20px" />
+    return (
+        <div className='projects-section'>
+            <div className='projects-hero'>
+                <h2>Follow Our Projects</h2>
+                <p>
+                    It is a long established fact that a reader will be
+                    distracted by the of readable content of page lookings at
+                    its layouts points.
+                </p>
+            </div>
+            <div className='projects-grid'>
+                {projects.map((project) => (
+                    <div
+                        className='project-card d-flex jc-center al-center fd-column'
+                        key={project.id}
+                    >
+                        <div className='thumb tertiary-background' style={{ backgroundImage: `url(/${project.thumb})` }} ></div>
+                        <h3>{project.title}</h3>
+                        <p>{project.subtitle}</p>
+                        <img src={LikedFilled} height='20px' />
+                    </div>
+                ))}
+            </div> 
         </div>
-
-        <div className="project-card d-flex jc-center al-center fd-column">
-          <div className="thumb tertiary-background"></div>
-          <h3>João Silva</h3>
-          <p>BH, Brasil</p>
-          <img src={LikedFilled} height="20px" />
-        </div>
-
-        <div className="project-card d-flex jc-center al-center fd-column">
-          <div className="thumb tertiary-background"></div>
-          <h3>João Silva</h3>
-          <p>BH, Brasil</p>
-          <img src={LikedFilled} height="20px" />
-        </div>
-
-        <div className="project-card d-flex jc-center al-center fd-column">
-          <div className="thumb tertiary-background"></div>
-          <h3>João Silva</h3>
-          <p>BH, Brasil</p>
-          <img src={LikedFilled} height="20px" />
-        </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default ProjectsList;
