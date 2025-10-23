@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, Children } from "react";
+import { createContext, useState, useEffect } from "react";
 import { getApiData } from "../services/apiServices";
 
 export const AppContext = createContext();
@@ -9,7 +9,7 @@ export const AppProvider = ({ children }) => {
     const [loanding, setLoanding] = useState(true)
 
     useEffect(() => {
-        const fetcLanguages = async () => {
+        const fetchLanguages = async () => {
             try {
                 const getTexts = await getApiData('webtext')
                 setLanguages(getTexts)
@@ -19,7 +19,7 @@ export const AppProvider = ({ children }) => {
                 setLoanding(false)
             }
         }
-        fetcLanguages()
+        fetchLanguages()
     }, [])
 
     return (
