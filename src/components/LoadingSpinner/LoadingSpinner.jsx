@@ -1,4 +1,3 @@
-
 import "./LoadingSpinner.css";
 import LoadingSpinnerImg from "../../assets/loading-spinner.gif"
 

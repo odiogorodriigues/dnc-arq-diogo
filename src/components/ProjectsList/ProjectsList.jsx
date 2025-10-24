@@ -7,6 +7,7 @@ import LikeOutline from "../../assets/like.svg";
 
 // COMPONENTS
 import Button from "../../components/Button/Button";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 // CONTEXT
 import { AppContext } from "../../contexts/AppContext";
@@ -17,7 +18,8 @@ import { getApiData } from "../../services/apiServices";
 function ProjectsList() {
   const [projects, setProjects] = useState([]);
   const [favProject, setFavProject] = useState([]);
-  const appContext = useContext(AppContext);
+  const { languages, language, loanding } = useContext(AppContext);
+
   const handleSavedProjects = (id) => {
     setFavProject((prevFavProjects) => {
       if (prevFavProjects.includes(id)) {
@@ -50,17 +52,28 @@ function ProjectsList() {
   }, []);
 
   useEffect(() => {
-    const savedFavProjects = JSON.parse(sessionStorage.getItem('favProjects'))
+    const savedFavProjects = JSON.parse(sessionStorage.getItem("favProjects"));
     if (savedFavProjects) {
-        setFavProject(savedFavProjects)
+      setFavProject(savedFavProjects);
     }
   }, []);
+
+  // Evita erro: só renderiza depois que o contexto estiver pronto
+  if (loanding || !languages || !languages[language]) {
+    return (
+      <footer>
+        <LoadingSpinner />
+      </footer>
+    );
+  }
+
+  const { title, subtitle } = languages[language].projects;
 
   return (
     <div className="projects-section">
       <div className="projects-hero">
-        <h2>{appContext.languages[appContext.language].projects.title}</h2>
-        <p>{appContext.languages[appContext.language].projects.subtitle}</p>
+        <h2>{title}</h2>
+        <p>{subtitle}</p>
       </div>
       <div className="projects-grid">
         {projects

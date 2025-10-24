@@ -13,24 +13,34 @@ import TwitterIcon from "../../assets/twitter-icon.svg";
 
 // COMPONENTS
 import Button from "../Button/Button";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 // CONTEXT
 import { AppContext } from "../../contexts/AppContext";
 
 function Footer() {
-  const appContext = useContext(AppContext);
+  const { languages, language, setLanguage, loanding } = useContext(AppContext);
   const changeLanguage = (country) => {
-    appContext.setLanguage(country);
+    setLanguage(country);
   };
+
+  // Protege contra undefined:
+  if (loanding || !languages || !languages[language]) {
+    return (
+      <footer>
+        <LoadingSpinner />
+      </footer>
+    );
+  }
+
+  const { general, menu } = languages[language];
   return (
     <footer>
       <div className="container">
         <div className="d-flex jc-space-between mobile-fd-column">
           <div className="footer-logo-col">
             <img src={Logo} alt="Logo" className="footer-logo" />
-            <p className="grey-1-color">
-              {appContext.languages[appContext.language].general.footerLogoText}
-            </p>
+            <p className="grey-1-color">{general.footerLogoText}</p>
 
             <div className="d-flex social-links">
               <a href="https://www.facebook.com" target="_blank">
@@ -53,25 +63,25 @@ function Footer() {
 
           <div className="d-flex mobile-fd-column">
             <div className="footer-col">
-              <h3>{appContext.languages[appContext.language].general.pages}</h3>
+              <h3>{general.pages}</h3>
               <ul>
                 <li>
-                  <Link to={"/"}>{appContext.languages[appContext.language].menu.home}</Link>
+                  <Link to={"/"}>{menu.home}</Link>
                 </li>
                 <li>
-                  <Link to={"/about"}>{appContext.languages[appContext.language].menu.about}</Link>
+                  <Link to={"/about"}>{menu.about}</Link>
                 </li>
                 <li>
-                  <Link to={"/projects"}>{appContext.languages[appContext.language].menu.projects}</Link>
+                  <Link to={"/projects"}>{menu.projects}</Link>
                 </li>
                 <li>
-                  <Link to={"/contact"}>{appContext.languages[appContext.language].menu.contact}</Link>
+                  <Link to={"/contact"}>{menu.contact}</Link>
                 </li>
               </ul>
             </div>
 
             <div className="footer-col">
-              <h3>{appContext.languages[appContext.language].general.contact}</h3>
+              <h3>{general.contact}</h3>
               <p className="grey-1-color">
                 R. Justino Cobra, 61 – Vila Ema | São José dos Campos – SP | CEP
                 12243-030

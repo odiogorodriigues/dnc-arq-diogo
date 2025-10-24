@@ -6,7 +6,7 @@ export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
     const savedLanguage = localStorage.getItem('lang')
     const [language, setLanguage] = useState(savedLanguage ?? 'br')
-    const [languages, setLanguages] = useState()
+    const [languages, setLanguages] = useState({})
     const [loanding, setLoanding] = useState(true)
 
     useEffect(() => {
