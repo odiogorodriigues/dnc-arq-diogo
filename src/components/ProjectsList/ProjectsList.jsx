@@ -84,7 +84,7 @@ function ProjectsList() {
               >
                 <div
                   className="thumb tertiary-background"
-                  style={{ backgroundImage: `url(/${project.thumb})` }}
+                  style={{ backgroundImage: `url(/${require(`../../assets/like-filled.svg`)})` }}
                 ></div>
                 <h1>{project.id}</h1>
                 <h3>{project.title}</h3>

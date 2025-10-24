@@ -3,6 +3,7 @@ import "./ContactForm.css";
 
 // COMPONENTS
 import Button from "../Button/Button";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 // CONTEXT
 import { AppContext } from "../../contexts/AppContext";
@@ -15,32 +16,47 @@ function ContactForm() {
   });
   const [isFormValid, setIsFormValid] = useState(false);
   const [formSubmitLoading, setFormSubmitLoading] = useState(false);
-  cont [formSubmitted, setFormSubmitted] = useState(false)
-  const appContext = useContext(AppContext);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const { languages, language, loanding } = useContext(AppContext);
+
+  // Só renderiza quando os textos estiverem carregados
+  if (loanding || !languages || !languages[language]) {
+    return (
+      <footer>
+        <LoadingSpinner />
+      </footer>
+    );
+  }
+
+  const contactTexts = languages[language].contact;
+  const generalTexts = languages[language].general;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (isFormValid) {
-      setFormSubmitLoading(true)
+      setFormSubmitLoading(true);
       try {
-        const response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
           header: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify({...formData, acess_key: "f0fd160f-2177-4011-a59b-33fb321f64ee"})
-        })
+          body: JSON.stringify({
+            ...formData,
+            acess_key: "f0fd160f-2177-4011-a59b-33fb321f64ee",
+          }),
+        });
 
         if (response.ok) {
-          setFormSubmitted(true)
+          setFormSubmitted(true);
         } else {
-          alert('Erro ao enviar!')
+          alert("Erro ao enviar!");
         }
       } catch (e) {
-        alert('Erro: ', e)
+        alert("Erro: ", e);
       } finally {
-        setFormSubmitLoading(false)
+        setFormSubmitLoading(false);
       }
     }
   };
@@ -63,14 +79,14 @@ function ContactForm() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
-        ...formData,
-        [name]: value
-    })
-  }
+      ...formData,
+      [name]: value,
+    });
+  };
 
   return (
     <div className="contact-form d-flex fd-column al-center">
-      <h2>{appContext.languages[appContext.language].contact.title}</h2>
+      <h2>{contactTexts.title}</h2>
       <form onSubmit={handleSubmit}>
         <div className="d-flex form-group">
           <input
@@ -78,7 +94,7 @@ function ContactForm() {
             type="text"
             id="name"
             name="name"
-            placeholder={appContext.languages[appContext.language].contact.pl1}
+            placeholder={contactTexts.pl1}
             onChange={handleChange}
           />
 
@@ -87,7 +103,7 @@ function ContactForm() {
             type="email"
             id="email"
             name="email"
-            placeholder={appContext.languages[appContext.language].contact.pl2}
+            placeholder={contactTexts.pl2}
             onChange={handleChange}
           />
         </div>
@@ -97,16 +113,24 @@ function ContactForm() {
             className="form-input"
             name="message"
             id="message"
-            placeholder={appContext.languages[appContext.language].contact.pl3}
+            placeholder={contactTexts.pl3}
             onChange={handleChange}
             rows="4"
           ></textarea>
         </div>
 
         <div className="al-center d-flex jc-end form-group">
-          {formSubmitted && <p className="text-primary">{appContext.languages[appContext.language].contact.sucessMsg}</p>}
-          <Button type="submit" buttonStyle="secondary" disabled={!isFormValid || formSubmitLoading}>
-            {appContext.languages[appContext.language].general.send}
+          {formSubmitted && (
+            <p className="text-primary">
+              {contactTexts.sucessMsg}
+            </p>
+          )}
+          <Button
+            type="submit"
+            buttonStyle="secondary"
+            disabled={!isFormValid || formSubmitLoading}
+          >
+            {generalTexts.send}
           </Button>
         </div>
       </form>
