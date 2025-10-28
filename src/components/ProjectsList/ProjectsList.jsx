@@ -84,9 +84,8 @@ function ProjectsList() {
               >
                 <div
                   className="thumb tertiary-background"
-                  style={{ backgroundImage: `url(/${require(`../../assets/like-filled.svg`)})` }}
+                  style={{ backgroundImage: `url(${import.meta.env.BASE_URL}projects/${project.id}.jpg)` }}
                 ></div>
-                <h1>{project.id}</h1>
                 <h3>{project.title}</h3>
                 <p>{project.subtitle}</p>
                 <Button
