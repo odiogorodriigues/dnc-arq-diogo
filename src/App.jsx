@@ -19,7 +19,7 @@ function App() {
     return <LoadingSpinner />
   }
   return (
-    <Router basename='/dnc-arq-diogo'>
+    <Router>
       <ScrollTop />
       <Routes>
         <Route path="/" element={<Home />} />
