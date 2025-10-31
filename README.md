@@ -63,7 +63,6 @@ O projeto foi construído para exercitar conceitos importantes de **componentiza
 1. **Clone o repositório**
    ```bash
    git clone https://github.com/odiogorodriigues/dnc-arq-diogo.git
-````
 
 2. **Acesse a pasta do projeto**
 
@@ -89,6 +88,7 @@ O projeto foi construído para exercitar conceitos importantes de **componentiza
    http://localhost:5173
    ```
 
+````
 ---
 
 ## 💡 Aprendizados
