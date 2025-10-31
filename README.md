@@ -88,7 +88,6 @@ O projeto foi construído para exercitar conceitos importantes de **componentiza
    http://localhost:5173
    ```
 
-````
 ---
 
 ## 💡 Aprendizados
