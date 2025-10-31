@@ -113,4 +113,4 @@ Projeto feito como parte dos estudos de React com a **Escola DNC**.
 
 ⭐ Se gostou do projeto, não esqueça de deixar uma estrela no repositório!
 
-```
+---
